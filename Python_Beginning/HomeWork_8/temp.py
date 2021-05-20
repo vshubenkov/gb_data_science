@@ -1,16 +1,6 @@
-class MyClass:
-    @staticmethod
-    def on_sum_1(param_1, param_2):  # Статический метод
-        return param_1 + param_2
+my_dict = {'key': []}
+temp_list = my_dict.get('key')
+my_dict.update({'key': temp_list.append('123')})  # Дополняем.
+#my_dict.update({'another_key': 'yet_another_value'})  # Обновляем.
 
-    def on_sum_2(self, param_1, param_2):  # Обычный метод класса
-        return param_1 + param_2
-
-    def on_sum_3(self, param_1, param_2):
-        return MyClass.on_sum_1(param_1, param_2)
-
-
-print(MyClass.on_sum_1(20, 30))
-mc = MyClass()
-print(mc.on_sum_2(20, 10))
-print(mc.on_sum_1(40, 30))
+print(my_dict)
