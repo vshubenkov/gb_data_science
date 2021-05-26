@@ -1,5 +1,11 @@
-class Storage:
+class ErrortoAddItemtoStorage(Exception):
+    def __init__(self, txt):
+        self.txt = txt
 
+class Department:
+    pass
+
+class Storage:
     def __init__(self, name):
         self.name = name
         self.storage_dictionary = {}
@@ -7,12 +13,24 @@ class Storage:
         self.item_id = 0
 
     def add_item_to_storage(self, item):
-        self.item_id += 1
-        self.count_items += 1
-        self.storage_dictionary[self.item_id] = item
+        '''
+        :param item: Object (New Scanner or Printer)
+        :return:
+        '''
+        #Check Item already exist in storage (paramenter for checking is serial id of item)
+        try:
+            for key, value in self.storage_dictionary.items():
+                if value.serial == item.serial and value.category == item.category:
+                    raise ErrortoAddItemtoStorage("Item with this serial is already in storage" + str(item.__dict__))
+                else:
+                    continue
+        except ErrortoAddItemtoStorage as err:
+            print(err)
+        else:
+            self.item_id += 1
+            self.count_items += 1
+            self.storage_dictionary[self.item_id] = item
 
-    def assign_item_to_dep(self, serial):
-        pass
 
     def print_storage(self):
          for key, value in self.storage_dictionary.items():
@@ -57,13 +75,19 @@ objStorage = Storage('North')
 
 objPrinter_1 = Printer(30, 30, 5, 'red', 'laser', 'Cannon', '#1')
 objPrinter_2 = Printer(40, 20, 4, 'red', 'jet', 'Dell', '#2')
+objPrinter_3 = Printer(30, 30, 5, 'red', 'laser', 'Cannon', '#2')
 
 objScanner_1 = Scanner(20, 20, 2, 'black', 'Xerox', '#1')
 objScanner_2 = Scanner(10, 10, 1, 'blue', 'Cannon', '#2')
 objScanner_3 = Scanner(25, 15, 5, 'grey', 'HP', '#3')
 
+
 objPrinter_1.pass_item_to_storage(objStorage)
 objPrinter_2.pass_item_to_storage(objStorage)
+
+objPrinter_1.pass_item_to_storage(objStorage) #Try to add the same object
+objPrinter_3.pass_item_to_storage(objStorage) #Try to add the object with an already existing serial
+
 objScanner_1.pass_item_to_storage(objStorage)
 objScanner_2.pass_item_to_storage(objStorage)
 objScanner_3.pass_item_to_storage(objStorage)

@@ -1,6 +1,8 @@
 my_dict = {'key': []}
-temp_list = my_dict.get('key')
+temp_list = [1, 2, 3]
 my_dict.update({'key': temp_list.append('123')})  # Дополняем.
-#my_dict.update({'another_key': 'yet_another_value'})  # Обновляем.
-
-print(my_dict)
+print(my_dict) #{'key': None}
+temp_list.append('123')
+my_dict.update({'key': temp_list})  # Дополняем.
+a = temp_list.append('123')
+print(a)
